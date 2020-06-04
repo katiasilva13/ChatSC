@@ -76,29 +76,4 @@ public class Transferencia {
 		return null;
 	}
 
-	public static void comparaBytes(File arquivo) throws Exception {
-
-		try {
-			byte[] bytes = Files.readAllBytes(arquivo.toPath());
-			String conversao = Base64.getEncoder().encodeToString(bytes);
-			byte[] criptografado = CriptoAES.encryptAQV(conversao, chaveencriptacao);
-
-			String descriptografado = new String(CriptoAES.decryptAQV(criptografado, chaveencriptacao));
-			byte[] descrip = Base64.getDecoder().decode(descriptografado.getBytes(StandardCharsets.UTF_8));
-
-			System.out.println("bytes : " + bytes);
-			System.out.println("conversao : " + conversao);
-			System.out.println("criptografado : " + criptografado);
-			System.out.println("descriptografado : " + descriptografado);
-			System.out.println("descrip : " + descrip);
-
-			System.out.println("bytes (original) == criptografado : " + Arrays.equals(bytes, criptografado));
-			System.out.println("conversao == descriptografado : " + conversao.equals(descriptografado));
-			System.out.println("bytes (original) == descrip : " + Arrays.equals(bytes, descrip));
-
-		} catch (IOException e) {
-			logger.log(Level.ALL, "Erro de compação. ", e);
-		}
-	}
-
 }
